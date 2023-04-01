@@ -1,16 +1,16 @@
 import React from 'react';
-import './App.css';
-import SignUpForm from './components/SignUpForm';
 
-const style ={
-  appContainer: 'max-w-[728px] mx-auto text-center',
-}
+import {Routes, Route } from "react-router-dom";
+import Home from './pages/Home';
 
-function App() {
+const App = () => {
   return (
-    <div className={style.appContainer}>
-    <SignUpForm />
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />}>
+
+          
+        </Route>
+      </Routes>
   );
 }
 
