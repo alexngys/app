@@ -25,25 +25,23 @@ const Sorting = () => {
     }
     const [inputs, setInputs] = useState(defaultFormData);
     const {teams} = inputs
-    let userlist: users[] = []
-
-    const getitems = async () =>{
-        const q = query(collection(db, "users"), orderBy('total','desc'))
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            const tempdata = doc.data()
-            userlist.push({name:tempdata.name,score:tempdata.total});
-         
-        });
-        setuserdata(userlist)
-        
-    }
     const [userdata,setuserdata]=useState<users[]>([])
+
     useEffect(() => {
-        getitems()
+        const getitems = async () =>{
+            let userlist: users[] = []
+            const q = query(collection(db, "users"), orderBy('total','desc'))
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                const tempdata = doc.data()
+                userlist.push({name:tempdata.name,score:tempdata.total});
+             
+            });
+            setuserdata(userlist)
+        }
+        getitems();
     },[]);
     
-    console.log(userlist)
 
     const onClick = (e:React.ChangeEvent<HTMLSelectElement>) => {
         setInputs((prevState) => ({
@@ -67,7 +65,7 @@ const Sorting = () => {
             data[minimumindex].push(userdata[j].name)
             counter[minimumindex] += userdata[j].score
         } 
-    
+        console.log(data,counter)
     }
     
     return(
