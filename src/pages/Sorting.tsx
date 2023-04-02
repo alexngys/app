@@ -42,6 +42,7 @@ const Sorting = () => {
     useEffect(() => {
         getitems()
     },[]);
+    
     console.log(userlist)
 
     const onClick = (e:React.ChangeEvent<HTMLSelectElement>) => {
@@ -60,11 +61,11 @@ const Sorting = () => {
             data.push([])
             counter.push(0)
         }
-        for (var i=0; i<userdata.length; i++){
+        for (var j=0; j<userdata.length; j++){
             let minimum = Math.min(...counter)
             let minimumindex = counter.indexOf(minimum)
-            data[minimumindex].push(userdata[i].name)
-            counter[minimumindex] += userdata[i].score
+            data[minimumindex].push(userdata[j].name)
+            counter[minimumindex] += userdata[j].score
         } 
     
     }
