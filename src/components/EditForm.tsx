@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import {db} from '../firebase'
-import { setDoc, doc } from "firebase/firestore";
+import { updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const style = {
     form: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4",
@@ -12,24 +13,21 @@ const style = {
 }
 
 const defaultFormData = {
-    name:'',
     dance:1,
     freestyle:1,
 }
 
-const SignUpForm = () =>{
-    const [inputs, setInputs] = useState(defaultFormData);
-    const {name,dance,freestyle} = inputs
-    const [formsuccess, setformsuccess] = useState('')
-    const [formerror, setformerror] = useState('')
 
-    const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setInputs((prevState) => ({
-            ...prevState,
-            [e.target.id]: e.target.value,
-    }));
-    };
-    
+const EditForm = () =>{
+    const name = window.location.pathname
+    const namespace = decodeURI(name)
+    const nameremove = namespace.split("/").pop()
+    let namefinal:string = nameremove!; 
+
+    const [inputs, setInputs] = useState(defaultFormData);
+    const {dance,freestyle} = inputs
+    const navigate = useNavigate();
+
     const onClick = (e:React.ChangeEvent<HTMLSelectElement>) => {
         setInputs((prevState) => ({
             ...prevState,
@@ -37,40 +35,31 @@ const SignUpForm = () =>{
         }));
     };
 
-
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        setformsuccess('')
-        setformerror('')
         e.preventDefault();
-        if (name===""){
-            setformerror('Enter a valid name')
-            return
-        }
-        
-        await setDoc(doc(db,'users',name), {
-            name: name,
-            dance: dance,
-            freestyle: freestyle,
-            total: dance+freestyle
-        })
+        const userRef = doc(db, 'users' , namefinal);
+        await updateDoc(userRef, {
+            dance:dance,
+            freestyle:freestyle,
+            total:dance+freestyle
+          });
         
         setInputs(defaultFormData);
-        setformsuccess(name)
+        navigate("/players")
     };
 
-
-
+    const deletuser = async() =>{
+        await deleteDoc(doc(db, 'users', namefinal));
+        navigate("/players")
+    }
     return(
         <div>
             <form className={style.form} onSubmit={onSubmit}>
-            <p className={style.title}>Welcome to Docks Games 3 sign in page</p>
-            {formsuccess && <p className={style.title}>Thank you {formsuccess} for signing in</p>}
             <div className="mb-6">
                 <label className={style.text}>
-                Enter your full name
+                {namefinal}
                 </label>
-                <input className={style.username} id="name" type="text" placeholder="Full Name" value={name} onChange={onChange}></input>
-                {formerror && <p className={style.text}>{formerror}</p>}
+                
             </div>
             
             <div className="mb-6">
@@ -102,9 +91,13 @@ const SignUpForm = () =>{
                     Submit
                 </button>
             </div>
+
             </form>
+            <button className={style.button} type="submit" onClick={deletuser}>
+                    Delete
+            </button>
         </div>
     )
 }
 
-export default SignUpForm
+export default EditForm

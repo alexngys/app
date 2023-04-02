@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { collection, orderBy, query, getDocs } from "firebase/firestore"
 import {db} from '../firebase'
+import { Link } from "react-router-dom";
 
 const style = {
     appContainer: "relative overflow-x-auto",
@@ -39,16 +40,16 @@ const Players = () => {
         
     }
 
-
     const [userdata,setuserdata]=useState<users[]>([])
     useEffect(() => {
         getitems()
     },[]);
+
     console.log(userdata)
-    
+
     return(
         <div className={style.appContainer}>
-            <p className={style.text}>Players</p>
+            <p className={style.text}>Players {userdata.length}</p>
             <table className={style.table}>
             <thead className={style.tablehead}>
                 <tr>
@@ -56,18 +57,16 @@ const Players = () => {
                 <th className={style.th} scope="col">Dance</th>
                 <th className={style.th} scope="col">Freestyle</th>
                 <th className={style.th} scope="col">Edit</th>
-                <th className={style.th} scope="col">Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {userdata.map((item) => {
                 return (
-                    <tr>
+                    <tr key={item.name}>
                     <td className={style.th}>{ item.name }</td>
                     <td className={style.th}>{ item.dance }</td>
                     <td className={style.th}>{ item.freestyle }</td>
-                    <a href="#" className={style.button}>Edit</a>
-                    <a href="#" className={style.button}>Delete</a>
+                    <td><Link to={`/editplayer/${item.name}`} className={style.button}>Edit</Link></td>
                     </tr>
                 );
                 })}
