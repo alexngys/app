@@ -46,7 +46,10 @@ const SignUpForm = () =>{
             setformerror('Enter a valid name')
             return
         }
-        
+        if (name.length<4){
+            setformerror('Name must be longer than 4 characters')
+            return
+        }
         await setDoc(doc(db,'users',name), {
             name: name,
             dance: dance,
