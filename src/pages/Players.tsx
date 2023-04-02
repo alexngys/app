@@ -49,7 +49,7 @@ const Players = () => {
 
     return(
         <div className={style.appContainer}>
-            <p className={style.text}>Players {userdata.length}</p>
+            <p className={style.text}>Number of players: {userdata.length}</p>
             <table className={style.table}>
             <thead className={style.tablehead}>
                 <tr>

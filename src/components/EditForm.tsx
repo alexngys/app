@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { useState } from "react";
 import {db} from '../firebase'
 import { updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";

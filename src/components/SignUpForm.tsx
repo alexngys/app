@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { useState } from "react";
 import {db} from '../firebase'
 import { setDoc, doc } from "firebase/firestore";
 
