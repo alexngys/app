@@ -50,6 +50,7 @@ const Sorting = () => {
         }));
     };
     
+    const [tables,settables] = useState<string[][]>([['']])
 
     const onSubmit = (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
@@ -67,7 +68,7 @@ const Sorting = () => {
             counter[minimumindex] += userdata[j].score
         } 
         console.log(data,counter)
-        
+        settables(data)
     }
     
     return(
@@ -96,7 +97,11 @@ const Sorting = () => {
             </div>
 
         </form>
-        
+        {tables.map(t,index) => {
+            return(
+
+            )
+        }}
         </div>
 
     );
