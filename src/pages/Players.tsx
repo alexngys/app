@@ -25,24 +25,24 @@ const Players = () => {
     }
   }
 
-  let userlist: users[] = [];
-
-  const getitems = async () => {
-    const q = query(collection(db, "users"), orderBy("name"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      const tempdata = doc.data();
-      userlist.push({
-        name: tempdata.name,
-        dance: tempdata.dance,
-        freestyle: tempdata.freestyle,
-      });
-    });
-    setuserdata(userlist);
-  };
+  
 
   const [userdata, setuserdata] = useState<users[]>([]);
   useEffect(() => {
+    const getitems = async () => {
+      let userlist: users[] = [];
+      const q = query(collection(db, "users"), orderBy("name"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        const tempdata = doc.data();
+        userlist.push({
+          name: tempdata.name,
+          dance: tempdata.dance,
+          freestyle: tempdata.freestyle,
+        });
+      });
+      setuserdata(userlist);
+    };
     getitems();
   }, []);
 

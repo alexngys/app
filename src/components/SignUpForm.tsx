@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../firebase";
 import { setDoc, doc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom"
 
 const style = {
   form: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4",
@@ -23,7 +24,6 @@ const defaultFormData = {
 const SignUpForm = () => {
   const [inputs, setInputs] = useState(defaultFormData);
   const { name, dance, freestyle } = inputs;
-  const [formsuccess, setformsuccess] = useState("");
   const [formerror, setformerror] = useState("");
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,8 +40,9 @@ const SignUpForm = () => {
     }));
   };
 
+  const navigate = useNavigate();
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    setformsuccess("");
     setformerror("");
     e.preventDefault();
     if (name === "") {
@@ -52,25 +53,22 @@ const SignUpForm = () => {
       setformerror("Name must be longer than 4 characters");
       return;
     }
-    let uppername = name[0].toUpperCase() + name.substring(1);
+    let nospace = name.trim()
+    let uppername = nospace[0].toUpperCase() + nospace.substring(1);
     await setDoc(doc(db, "users", uppername), {
       name: uppername,
       dance: dance,
       freestyle: freestyle,
       total: dance + freestyle,
     });
-
     setInputs(defaultFormData);
-    setformsuccess(uppername);
+    navigate('/success')
   };
 
   return (
     <div>
       <form className={style.form} onSubmit={onSubmit}>
         <p className={style.title}>Welcome to Docks Games 3 sign in page</p>
-        {formsuccess && (
-          <p className={style.title}>Thank you {formsuccess} for signing in</p>
-        )}
         <div className="mb-6">
           <label className={style.text}>Enter your full name</label>
           <input
