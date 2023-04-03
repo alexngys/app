@@ -97,11 +97,20 @@ const Sorting = () => {
             </div>
 
         </form>
-        {tables.map(t,index) => {
+        {tables.map((item,index) => {
             return(
-
+                <div>
+                    <header>Team {index+1}</header>
+                    {item.map((player) => {
+                        return(
+                            <table>
+                                <tr>{player}</tr>
+                            </table>
+                        )
+                    })}
+                </div>
             )
-        }}
+    })}
         </div>
 
     );
