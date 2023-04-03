@@ -50,15 +50,16 @@ const SignUpForm = () =>{
             setformerror('Name must be longer than 4 characters')
             return
         }
-        await setDoc(doc(db,'users',name), {
-            name: name,
+        let uppername = name[0].toUpperCase() + name.substring(1);
+        await setDoc(doc(db,'users',uppername), {
+            name: uppername,
             dance: dance,
             freestyle: freestyle,
             total: dance+freestyle
         })
         
         setInputs(defaultFormData);
-        setformsuccess(name)
+        setformsuccess(uppername)
     };
 
 

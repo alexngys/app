@@ -50,9 +50,10 @@ const Sorting = () => {
         }));
     };
     
+
     const onSubmit = (e:React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
-        var data: string[][] = []
+        var data: string[][] = [] 
         var counter = []
         
         for (var i=0; i<teams; i++){
@@ -66,6 +67,7 @@ const Sorting = () => {
             counter[minimumindex] += userdata[j].score
         } 
         console.log(data,counter)
+        
     }
     
     return(
@@ -96,6 +98,7 @@ const Sorting = () => {
         </form>
         
         </div>
+
     );
 };
   
