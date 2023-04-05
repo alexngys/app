@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import EditForm from '../components/EditForm';
+import LevelsGuide from '../components/LevelsGuide';
 
 const style = {
     appContainer: 'max-w-[728px] mx-auto text-center',
@@ -12,6 +13,7 @@ const EditPlayer = () => {
     return(
         <div className={style.appContainer}>
         <EditForm />
+        <LevelsGuide />
         </div>
     );
 };

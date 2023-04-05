@@ -10,11 +10,11 @@ const style = {
     "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
   button:
     "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto",
-  table: "shadow-lg bg-white py-2 table-fixed w-full",
-  thead: "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ",
+  table: "shadow-lg bg-white py-2 table-fixed w-full rounded-lg",
+  thead: "text-xs text-gray-700 uppercase bg-gray-50",
   th:"px-6 py-3",
   td: "border px-4 py-4",
-  card: "w-auto mb-6 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700",
+  card: "w-auto mb-6 p-6 bg-white border border-gray-200 rounded-lg shadow",
 };
 
 const defaultFormData = {
